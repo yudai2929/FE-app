@@ -6,7 +6,7 @@ interface Props{
 }
 export const Layout = ({children}:Props): JSX.Element=> {
   return (
-    <VStack as="main" h="100vh" justify="center" bgColor='rgba(0,0,0,0.02)'>
+    <VStack as="main" minH="100vh" pt='50px' justify="center" bgColor='rgba(0,0,0,0.02)'>
         {children}
     </VStack>
   )

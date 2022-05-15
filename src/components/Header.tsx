@@ -27,6 +27,7 @@ export const Header = () => {
         position="fixed"
         w='100%'
         zIndex="100"
+        
       >
         <HStack w='100%'>
           <Heading fontSize="2xl">過去問アプリ</Heading>
