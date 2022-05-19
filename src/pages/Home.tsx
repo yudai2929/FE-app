@@ -1,17 +1,19 @@
-import React from "react";
-import { Button, Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import { Layout } from "../components/Layout";
+import React, {  } from "react";
+import { Text } from "@chakra-ui/react";
 
-export const Home = (): JSX.Element=> {
+import { Layout } from "../components/Layout";
+import { QuizForm } from "../components/QuizForm";
+interface Props{
+  setNumOfQuests: (value: number) => void
+  setQuizPath: (value: string) => void
+}
+export const Home = ({setNumOfQuests,setQuizPath}: Props): JSX.Element=> {
   return (
     <Layout>
-      <Text as="h1" fontSize="4xl">
+      <Text as="h1" fontSize={{md:'4xl',base:'3xl'}}>
         基本情報処理試験過去問
       </Text>
-      <Button colorScheme="blue" variant="outline">
-        <Link to="/quiz">問題を解く</Link>
-      </Button>
+      <QuizForm setQuizPath={setQuizPath} setNumOfQuests={setNumOfQuests}/>
     </Layout>
   );
 };

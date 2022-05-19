@@ -3,6 +3,8 @@ type quiz = {
     question: string,
     choices: string[],
     answer: number,
+    url: string
+    filed: string
 }
 
 export default quiz

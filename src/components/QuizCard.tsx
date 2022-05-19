@@ -1,4 +1,4 @@
-import { Box, Text, HStack, Button, Divider } from "@chakra-ui/react";
+import { Box, Text, HStack, Button, Divider, Spacer } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
 import quiz from "../types/quiz";
@@ -25,10 +25,6 @@ export const QuizCard = ({
   const hoverColor: string = isAnswered ? "white" : "blue.50";
 
   const handleClick = (choiceNumber: number) => {
-    if (isAnswered) {
-      alert("問題を選択してください")
-      return
-    }
     if (choiceNumber === quiz.answer) {
       setMessage("正解！");
     } else {
@@ -39,38 +35,55 @@ export const QuizCard = ({
   };
 
   return (
-    <Box bgColor="#fff" p="5" w="100%">
-      <Text>{quiz.title}</Text>
-      <Text as="h1" fontSize="xl" p="5">
-        {quiz.question}
-      </Text>
-      <Divider/>
+    <Box bgColor="#fff" p="5" w="100%" rounded="2xl" boxShadow="sm">
+      <Box rounded="xl" mb="3" boxShadow="md">
+        <HStack>
+        <Text p="3" d="inline-block">
+          {quiz.title}
+        </Text>
+        <Spacer/>
+        <Text p="3" d="inline-block">
+          {quiz.filed}
+        </Text>
+        </HStack>
+        <Text as="h1" fontSize="xl" p="5">
+          {quiz.question}
+        </Text>
+      </Box>
+      <Divider />
       {quiz.choices.map((choice: string, index: number) => {
         return (
           <Box key={index}>
             <HStack
-            p="2"
-            fontSize="lg"
-            as="button"
-            w="100%"
-            _hover={{ bgColor: hoverColor }}
-            onClick={() => handleClick(index + 1)}
-            disabled={isAnswered}
-            cursor={isAnswered ? "text" : "pointer"}
-          >
-            <Text>{index + 1}</Text>
-            <Text textAlign="start">{choice}</Text>
-          </HStack>
-          <Divider/>
+              p="2"
+              fontSize="lg"
+              as="button"
+              w="100%"
+              _hover={{ bgColor: hoverColor }}
+              onClick={() => handleClick(index + 1)}
+              disabled={isAnswered}
+              cursor={isAnswered ? "text" : "pointer"}
+            >
+              <Box px='2' borderLeft="2px" borderColor='blue.500'>{index + 1}.</Box>
+              <Text textAlign="start">{choice}</Text>
+            </HStack>
+            <Divider />
           </Box>
         );
       })}
-      <Text hidden={!isAnswered}>{message}</Text>
-      <Box w="100%" textAlign="end">
-        <Button bg="blue.500" color="white" onClick={nextQuiz}>
+      <Text m="3" hidden={!isAnswered}>
+        {message}
+      </Text>
+
+      <HStack w="100%" mt="3">
+        <Button bg="blue.500" color="white" as='a' href={quiz.url} target="_blank">
+          解説を見る
+        </Button>
+        <Spacer/>
+        <Button colorScheme="blue" variant="outline" onClick={nextQuiz} m="3">
           次の問題へ
         </Button>
-      </Box>
+      </HStack>
     </Box>
   );
 };
