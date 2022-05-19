@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { Layout } from "../components/Layout";
-import { Text } from "@chakra-ui/react";
-import { collection, getDocs, doc, setDoc } from "firebase/firestore";
+import { VStack,Text } from "@chakra-ui/react";
+import { collection, onSnapshot  } from "firebase/firestore";
 import db from "../firebase";
+import quiz from "../types/quiz";
+import { QuizDetailCard } from "./QuizDetailCard";
 export const List = (): JSX.Element => {
+  const [quizs, setQuizs] = useState<quiz[]>([]);
+
   const getData = async () => {
-    const querySnapshot = await getDocs(collection(db, "test"));
-    console.log(querySnapshot)
-    querySnapshot.forEach((doc) => {
-      console.log(doc.data());
+    onSnapshot((collection(db, "test")), (snapshot) => {
+      setQuizs(snapshot.docs.map((doc) => doc.data())as quiz[]);
     });
   };
 
-  const setData = async () => {
-    const citiesRef = collection(db, "test");
-    await setDoc(doc(citiesRef,'dd'), {
-      name: "San Francisco", state: "CA", country: "USA",
-      capital: false, population: 860000,
-      regions: ["west_coast", "norcal"] });
-  }
-
   useEffect(() => {
-    //setData()
+    getData();
+    return
   }, []);
 
   return (
     <Layout>
-      <Text>復習できるページです</Text>
+      <VStack w={{ base: "100%", md: "80%" }}>
+        {quizs.length === 0 && <Text>復習する問題がありません</Text>}
+        {quizs.map((quiz, index) => {
+          return <QuizDetailCard key={index} quiz={quiz} />;
+        })}
+      </VStack>
     </Layout>
   );
 };

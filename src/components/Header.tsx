@@ -25,11 +25,11 @@ export const Header = () => {
         as="header"
         boxShadow="sm"
         position="fixed"
-        w='100%'
+        w="100%"
         zIndex="100"
       >
-        <HStack w='100%'>
-          <Heading fontSize="2xl">過去問アプリ</Heading>
+        <HStack w="100%">
+          <Heading fontSize="2xl">FE過去問アプリ</Heading>
           <Spacer />
           <HStack as="nav" display={{ base: "none", md: "flex" }}>
             <Link to="/">
@@ -60,22 +60,24 @@ export const Header = () => {
           display={{ base: isOpen ? "block" : "none", md: "block" }}
           mt={{ base: 4, md: 0 }}
         >
-          <VStack as="nav" display={{ base: "flex", md: "none" }} justify="start">
-            <Link to="/list">
-              <Box fontWeight="bold" ms="10px">
-                ホーム
-              </Box>
-            </Link>
+          <VStack
+            as="nav"
+            display={{ base: "flex", md: "none" }}
+            justify="start"
+          >
+            <Box fontWeight="bold" w="100%">
+              <Link to="/">ホーム</Link>
+            </Box>
             <Spacer />
-            <Link to="/list">
-              <Box fontWeight="bold">復習リスト</Box>
-            </Link>
+            <Box fontWeight="bold" w="100%">
+              <Link to="/list">復習リスト</Link>
+            </Box>
             <Spacer />
-            <Button bg="blue.500">
-              <Link to="#">
-                <Box color="white">ログイン</Box>
-              </Link>
-            </Button>
+            <Box color="white" w="100%">
+              <Button bg="blue.500">
+                <Link to="login">ログイン</Link>
+              </Button>
+            </Box>
           </VStack>
         </Box>
       </Box>
