@@ -1,4 +1,4 @@
-import { Box, Button, Text, VStack } from "@chakra-ui/react";
+import { Box,  Text, VStack } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { Layout } from "../components/Layout";
 import { QuizCard } from "../components/QuizCard";
@@ -59,9 +59,9 @@ export const Quiz = ({ numOfQuests, quizPath }: Props): JSX.Element => {
     <Layout>
       {finished ? (
         <VStack w={{ base: "100%", md: "80%" }}>
-          <Button colorScheme="blue" variant="outline" w="150px" m='3'>
+          <Text colorScheme="blue" variant="outline" w="150px" m='3'>
             <Link to="/">ホームに戻る</Link>
-          </Button>
+          </Text>
           {worngQuizs.length === 0 && <Text>間違えた問題はありません</Text>}
           {worngQuizs.map((worngQuiz, index) => {
             return <QuizRegister key={index} quiz={worngQuiz} />;

@@ -11,10 +11,24 @@ import {
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-export const Header = () => {
+import { getAuth, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+
+interface Props{
+  isLogined: boolean,
+  setIsLogined:(value: boolean) => void
+}
+
+export const Header = ({isLogined,setIsLogined}: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
-
+  const auth = getAuth();
+  const navigate = useNavigate();
+  const logout = async ()=>{
+    await signOut(auth);
+    setIsLogined(false)
+    navigate("login");
+  }
   return (
     <>
       <Box
@@ -42,11 +56,17 @@ export const Header = () => {
               <Box fontWeight="bold">復習リスト</Box>
             </Link>
             <Spacer />
-            <Button bg="blue.500">
-              <Link to="login">
-                <Box color="white">ログイン</Box>
-              </Link>
-            </Button>
+            {!isLogined ? (
+              <Button bg="blue.500">
+                <Link to="login">
+                  <Box color="white">ログイン</Box>
+                </Link>
+              </Button>
+            ) : (
+              <Button bg="blue.500" onClick={logout}>
+                  <Box color="white">ログアウト</Box>
+              </Button>
+            )}
           </HStack>
           <Box
             as="button"
@@ -74,9 +94,13 @@ export const Header = () => {
             </Box>
             <Spacer />
             <Box color="white" w="100%">
-              <Button bg="blue.500">
-                <Link to="login">ログイン</Link>
-              </Button>
+              {isLogined ? (
+                <Button bg="blue.500" onClick={logout}>ログアウト</Button>
+              ) : (
+                <Button bg="blue.500" >
+                  <Link to="login">ログイン</Link>
+                </Button>
+              )}
             </Box>
           </VStack>
         </Box>
