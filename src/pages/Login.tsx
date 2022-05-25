@@ -1,13 +1,150 @@
-import React from 'react'
-import {Layout} from '../components/Layout'
-import {Text} from "@chakra-ui/react";
+import React, { useContext,useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Layout } from "../components/Layout";
+import {
+  Text,
+  Box,
+  VStack,
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Divider,
+} from "@chakra-ui/react";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup, 
+  getRedirectResult,
+  signInWithRedirect,
+  GoogleAuthProvider
+} from "firebase/auth";
+import { Navigate } from "react-router-dom";
+import { loginContext } from "../App";
 
-export const Login = () => {
+
+interface InputForm {
+  password: string;
+  email: string;
+}
+
+export const Login = (props: any) => {
+  const [loginError, setLoginError] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  const {isLogined,setIsLogined} = useContext(loginContext);
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<InputForm>();
+
+  
+  const onSubmit: SubmitHandler<InputForm> = async (data: InputForm) => {
+    const password: string = data.password;
+    const email: string = data.email;
+
+    if (isLogin) {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          setIsLogined(true)
+        })
+        .catch((error) => {
+          setLoginError(true);
+        });
+    } else {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          setIsLogined(true)
+        })
+        .catch((error) => {
+          setLoginError(true);
+        });
+    }
+  };
+
+  const loginWithGoogle = ()=>{
+    signInWithRedirect(auth, provider);
+  }
+
+  const handlemodeChange = () => {
+    setIsLogin(!isLogin);
+    setLoginError(false);
+    console.log(isLogin);
+  };
   return (
     <Layout>
-        <Text>
-            ログインできるページです
-        </Text>
+      {isLogined? (
+        <Navigate to={`/`} />
+      ) : (
+        <VStack
+          bgColor="white"
+          p="8"
+          fontWeight="bold"
+          w={{ base: "350px", md: "500px" }}
+          rounded="lg"
+          boxShadow="md"
+        >
+          <Text>
+            {isLogin ? "ログインしてください" : "新規登録してください"}
+          </Text>
+          {loginError && <Text color="red">認証できませんでいした</Text>}
+          <VStack
+            as="form"
+            w="100%"
+            onSubmit={handleSubmit(onSubmit, () => {
+            })}
+          >
+            <FormControl w="100%">
+              <FormLabel htmlFor="email">メールアドレス</FormLabel>
+              <Input
+                id="email"
+                type="email"
+                placeholder="メールアドレス"
+                {...register("email", { required: true })}
+              />
+            </FormControl>
+            <FormControl w="100%">
+              <Box w="100%">
+                <FormLabel htmlFor="password">パスワード</FormLabel>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="*******"
+                  {...register("password", {
+                    minLength: {
+                      value: 8,
+                      message: "パスワードは最小8文字必要です",
+                    },
+                    maxLength: {
+                      value: 20,
+                      message: "パスワードは20文字までです",
+                    },
+                  })}
+                />
+              </Box>
+              <Text>{errors.password && errors.password.message}</Text>
+            </FormControl>
+            <Button w="100%" color="white" bg="blue.500" type="submit">
+              ログイン
+            </Button>
+            <Divider />
+            <Button w="100%" bg="white" border="1px" onClick={loginWithGoogle}>
+              Googleでログイン
+            </Button>
+            <Text
+              as="button"
+              type="button"
+              color="gray"
+              onClick={handlemodeChange}
+            >
+              {isLogin ? "アカウントを登録する" : "ログインに戻る"}
+            </Text>
+          </VStack>
+        </VStack>
+      )}
     </Layout>
-  )
-}
+  );
+};

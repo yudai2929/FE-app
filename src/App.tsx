@@ -7,24 +7,55 @@ import { Quiz } from "./pages/Quiz";
 import { List } from "./pages/List";
 import { Login } from "./pages/Login";
 import { Log } from "./pages/Log";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+
+export const loginContext = React.createContext(
+  {} as {
+    isLogined: boolean;
+    setIsLogined: (value: boolean) => void;
+  }
+);
 
 export const App = () => {
-  const [numOfQuests,setNumOfQuests] = useState(5)
-  const [quizPath, setQuizPath] = useState('01_aki')
+  const [numOfQuests, setNumOfQuests] = useState(5);
+  const [quizPath, setQuizPath] = useState("01_aki");
+  const [isLogined, setIsLogined] = useState(false);
+
+  const auth = getAuth();
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLogined(true);
+      }
+    });
+  }, []);
 
   return (
     <ChakraProvider theme={theme}>
       <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route index element={<Home setNumOfQuests={setNumOfQuests} setQuizPath={setQuizPath}/>} />
-          <Route path="quiz" element={<Quiz numOfQuests={numOfQuests} quizPath={quizPath}/>} />
-          <Route path="list" element={<List />} />
-          <Route path="login" element={<Login />} />
-          <Route path="log" element={<Log />} />
-        </Routes>
+        <loginContext.Provider value={{ isLogined, setIsLogined }}>
+          <Header isLogined={isLogined} setIsLogined={setIsLogined} />
+          <Routes>
+            <Route
+              index
+              element={
+                <Home
+                  setNumOfQuests={setNumOfQuests}
+                  setQuizPath={setQuizPath}
+                />
+              }
+            />
+            <Route
+              path="quiz"
+              element={<Quiz numOfQuests={numOfQuests} quizPath={quizPath} />}
+            />
+            <Route path="list" element={<List />} />
+            <Route path="login" element={<Login />} />
+            <Route path="log" element={<Log />} />
+          </Routes>
+        </loginContext.Provider>
       </BrowserRouter>
     </ChakraProvider>
   );

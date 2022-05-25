@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import quiz from "../types/quiz";
 import { collection, doc, setDoc } from "firebase/firestore";
 import db from "../firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 interface Props {
   quiz: quiz;
@@ -10,28 +11,37 @@ interface Props {
 
 export const QuizRegister = ({ quiz }: Props): JSX.Element => {
   const [isRegistered, setIsRegistered] = useState(false);
+
   const setData = () => {
-    const quizRef = collection(db, "test");
-    setDoc(doc(quizRef, quiz.title), quiz);
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        const quizRef = collection(db, "test");
+        setDoc(doc(quizRef, quiz.title), { ...quiz ,uid:uid });
+      } else {
+        const quizRef = collection(db, "test");
+        setDoc(doc(quizRef, quiz.title), quiz);
+      }
+    });
   };
   const handleClick = () => {
     setData();
     setIsRegistered(true);
   };
   return (
-      
-    <Box bgColor="#fff" p='5' w="100%" >
-      <Box rounded="xl" boxShadow="sm" p='2'>
-      <HStack>
-        <Text p='3' d="inline-block">
-          {quiz.title}
-        </Text>
-        <Spacer/>
-        <Text p="3" d="inline-block">
-          {quiz.filed}
-        </Text>
+    <Box bgColor="#fff" p="5" w="100%">
+      <Box rounded="xl" boxShadow="sm" p="2">
+        <HStack>
+          <Text p="3" d="inline-block">
+            {quiz.title}
+          </Text>
+          <Spacer />
+          <Text p="3" d="inline-block">
+            {quiz.filed}
+          </Text>
         </HStack>
-        <Text as="h1" fontSize="xl" p={{md:'5',base:'1'}}>
+        <Text as="h1" fontSize="xl" p={{ md: "5", base: "1" }}>
           {quiz.question}
         </Text>
       </Box>
@@ -47,7 +57,8 @@ export const QuizRegister = ({ quiz }: Props): JSX.Element => {
         </Button>
         <Spacer />
         <Button
-          colorScheme="blue" variant="outline"
+          colorScheme="blue"
+          variant="outline"
           onClick={handleClick}
           disabled={isRegistered}
           cursor={isRegistered ? "text" : "pointer"}

@@ -7,4 +7,4 @@ type quiz = {
     filed: string
 }
 
-export default quiz
+export default Quiz
