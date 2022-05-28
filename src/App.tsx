@@ -9,6 +9,7 @@ import { Login } from "./pages/Login";
 import { Log } from "./pages/Log";
 import { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Register } from "./pages/Register";
 
 
 export const loginContext = React.createContext(
@@ -54,6 +55,7 @@ export const App = () => {
             <Route path="list" element={<List />} />
             <Route path="login" element={<Login />} />
             <Route path="log" element={<Log />} />
+            <Route path="register" element={<Register />} />
           </Routes>
         </loginContext.Provider>
       </BrowserRouter>

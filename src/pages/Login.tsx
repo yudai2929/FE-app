@@ -15,12 +15,10 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
-  signInWithPopup, 
-  getRedirectResult,
   signInWithRedirect,
   GoogleAuthProvider
 } from "firebase/auth";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavigateFunction, useNavigate } from "react-router-dom";
 import { loginContext } from "../App";
 
 
@@ -28,6 +26,8 @@ interface InputForm {
   password: string;
   email: string;
 }
+
+const APP_KEY:string = 'quizTmp'
 
 export const Login = (props: any) => {
   const [loginError, setLoginError] = useState(false);
@@ -40,39 +40,44 @@ export const Login = (props: any) => {
     handleSubmit,
     formState: { errors },
   } = useForm<InputForm>();
-
-  
-  const onSubmit: SubmitHandler<InputForm> = async (data: InputForm) => {
-    const password: string = data.password;
-    const email: string = data.email;
-
+  const navigate:NavigateFunction = useNavigate()
+  const quizsTmp:string|null = localStorage.getItem(APP_KEY)
+  const authentication = (email:string,password:string):void => {
     if (isLogin) {
       signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(() => {
           setIsLogined(true)
         })
-        .catch((error) => {
+        .catch(() => {
           setLoginError(true);
         });
     } else {
       createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(() => {
           setIsLogined(true)
         })
-        .catch((error) => {
+        .catch(() => {
           setLoginError(true);
         });
     }
+  }
+
+  const onSubmit: SubmitHandler<InputForm> = async (data: InputForm) => {
+    const password: string = data.password;
+    const email: string = data.email;
+    await authentication(email, password)
+    quizsTmp && navigate("/register");
   };
 
-  const loginWithGoogle = ()=>{
-    signInWithRedirect(auth, provider);
+  const loginWithGoogle = async ()=>{
+    await signInWithRedirect(auth, provider);
+    quizsTmp && navigate("/register");
   }
 
   const handlemodeChange = () => {
     setIsLogin(!isLogin);
     setLoginError(false);
-    console.log(isLogin);
+    
   };
   return (
     <Layout>
@@ -112,7 +117,7 @@ export const Login = (props: any) => {
                 <Input
                   id="password"
                   type="password"
-                  placeholder="*******"
+                  placeholder="********"
                   {...register("password", {
                     minLength: {
                       value: 8,
