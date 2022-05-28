@@ -7,7 +7,9 @@ interface Props{
   setNumOfQuests: (value: number) => void
   setQuizPath: (value: string) => void
 }
+
 export const Home = ({setNumOfQuests,setQuizPath}: Props): JSX.Element=> {
+
   return (
     <Layout>
       <Text as="h1" fontSize={{md:'4xl',base:'3xl'}}>

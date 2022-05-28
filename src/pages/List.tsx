@@ -4,14 +4,13 @@ import { VStack, Text } from "@chakra-ui/react";
 import { collection, onSnapshot,query, where } from "firebase/firestore";
 import db from "../firebase";
 import quiz from "../types/quiz";
-import { QuizDetailCard } from "./QuizDetailCard";
+import { QuizDetailCard} from "../components/QuizDetailCard"
 import { getAuth } from "firebase/auth";
 
 export const List = (): JSX.Element => {
   const auth = getAuth();
   const user = auth.currentUser;
   const uid:string= user ? user.uid : '';
-
   const [quizs, setQuizs] = useState<quiz[]>([]);
   const getData = async () => {
     onSnapshot(query(collection(db, "test"),where("uid", "==", uid)), (snapshot) => {

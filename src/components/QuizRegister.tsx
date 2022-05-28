@@ -4,6 +4,9 @@ import quiz from "../types/quiz";
 import { collection, doc, setDoc } from "firebase/firestore";
 import db from "../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   quiz: quiz;
@@ -11,7 +14,8 @@ interface Props {
 
 export const QuizRegister = ({ quiz }: Props): JSX.Element => {
   const [isRegistered, setIsRegistered] = useState(false);
-
+  const navigate:NavigateFunction = useNavigate()
+  
   const setData = () => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -19,15 +23,14 @@ export const QuizRegister = ({ quiz }: Props): JSX.Element => {
         const uid = user.uid;
         const quizRef = collection(db, "test");
         setDoc(doc(quizRef, quiz.title), { ...quiz ,uid:uid });
+        setIsRegistered(true);
       } else {
-        const quizRef = collection(db, "test");
-        setDoc(doc(quizRef, quiz.title), quiz);
+        navigate('/login')
       }
     });
   };
   const handleClick = () => {
     setData();
-    setIsRegistered(true);
   };
   return (
     <Box bgColor="#fff" p="5" w="100%">
@@ -64,7 +67,9 @@ export const QuizRegister = ({ quiz }: Props): JSX.Element => {
           cursor={isRegistered ? "text" : "pointer"}
           _hover={{ bgColor: "none" }}
         >
-          復習リストに追加
+          <FontAwesomeIcon icon={faPlus} />
+          <Text ms='2'>復習リスト</Text>
+          
         </Button>
       </HStack>
     </Box>

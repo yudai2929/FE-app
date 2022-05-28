@@ -1,21 +1,26 @@
-import { Box, Button, Divider, HStack, Spacer, Text } from "@chakra-ui/react";
+import { Box, Button, Divider, HStack, Icon, Spacer, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import quiz from "../types/quiz";
 import { doc, deleteDoc } from "firebase/firestore";
 import db from "../firebase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+
 interface Props {
   quiz: quiz;
 }
 export const QuizDetailCard = ({ quiz }: Props): JSX.Element => {
   const [btnMsg, setBtnMsg] = useState("答えを見る");
   const [isAnswered, setIsAnswered] = useState(false);
+  const iconDisplay = isAnswered? 'initail':'none'
   const btnColor = isAnswered ? "red.500" : "blue.500";
+
   const DeleteData = async () => {
     await deleteDoc(doc(db, "test", quiz.title));
   };
   const handleClick = () => {
     if (!isAnswered) {
-      setBtnMsg("削除する");
+      setBtnMsg("");
       setIsAnswered(true);
     } else {
       setBtnMsg("答えを見る");
@@ -63,8 +68,9 @@ export const QuizDetailCard = ({ quiz }: Props): JSX.Element => {
           color="white"
           _hover={{ bgColor: "none" }}
           onClick={handleClick}
-        >
-          {btnMsg}
+        >{btnMsg}
+        <Icon display={iconDisplay}><FontAwesomeIcon icon={faTrashCan}/></Icon>
+          
         </Button>
       </Box>
     </Box>
