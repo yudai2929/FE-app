@@ -8,15 +8,14 @@ const APP_KEY: string = "quizTmp";
 
 export const Register = (): JSX.Element => {
   const quizsTmp: string | null = localStorage.getItem(APP_KEY);
-  quizsTmp && console.log(JSON.parse(quizsTmp));
   const worngQuizs: quiz[] = quizsTmp ? JSON.parse(quizsTmp) : null;
 
   return (
     <Layout>
       <VStack w={{ base: "100%", md: "80%" }}>
-        <Text colorScheme="blue" variant="outline" w="150px" m="3">
-          <Link to="/">ホームに戻る</Link>
-        </Text>
+      <Text fontSize='3xl' align='center' colorScheme="blue" variant="outline" m='3' >
+            正解率：{5 - worngQuizs.length} / {5}
+          </Text>
         {!worngQuizs ? (
           <Navigate to={`/`} />
         ) : (

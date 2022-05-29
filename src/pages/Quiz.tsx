@@ -42,8 +42,6 @@ export const Quiz = ({ numOfQuests, quizPath }: Props): JSX.Element => {
       const quizs: quiz[] = randomQuiz(quizsDatas, numOfQuests);
       setCurrentQuiz(quizs[0]);
       setQuizs(quizs);
-      const quizsTmp:string|null = await localStorage.getItem(APP_KEY)
-      quizsTmp && console.log(JSON.parse(quizsTmp))
     };
     getQuiz();
   }, []);
@@ -58,8 +56,6 @@ export const Quiz = ({ numOfQuests, quizPath }: Props): JSX.Element => {
     if (quizNumber === numOfQuests - 1) {
       setFinished(true);
       user ||  localStorage.setItem(APP_KEY,JSON.stringify(worngQuizs));
-      const quizsTmp:string|null = localStorage.getItem(APP_KEY)
-      quizsTmp && console.log( JSON.parse(quizsTmp))
       return;
     }
 
@@ -73,8 +69,8 @@ export const Quiz = ({ numOfQuests, quizPath }: Props): JSX.Element => {
     <Layout>
       {finished ? (
         <VStack w={{ base: "100%", md: "80%" }}>
-          <Text colorScheme="blue" variant="outline" w="150px" m='3'>
-            <Link to="/">ホームに戻る</Link>
+          <Text fontSize='3xl' align='center' colorScheme="blue" variant="outline" m='3' >
+            正解率：{quizs.length - worngQuizs.length} / {quizs.length}
           </Text>
           {worngQuizs.length === 0 && <Text>間違えた問題はありません</Text>}
           {worngQuizs.map((worngQuiz, index) => {
