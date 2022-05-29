@@ -43,7 +43,7 @@ export const Header = ({isLogined,setIsLogined}: Props) => {
         zIndex="100"
       >
         <HStack w="100%">
-          <Heading fontSize="2xl">FE過去問アプリ</Heading>
+          <Heading fontSize="2xl"><Link to='/'>FE過去問アプリ</Link></Heading>
           <Spacer />
           <HStack as="nav" display={{ base: "none", md: "flex" }}>
             <Link to="/">

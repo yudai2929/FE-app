@@ -76,9 +76,6 @@ export const QuizCard = ({
       </Text>
 
       <HStack w="100%" mt="3">
-        <Button bg="blue.500" color="white" as='a' href={quiz.url} target="_blank">
-          解説を見る
-        </Button>
         <Spacer/>
         <Button colorScheme="blue" variant="outline" onClick={nextQuiz} m="3">
           次の問題へ
