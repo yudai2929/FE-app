@@ -1,6 +1,6 @@
 import { VStack, Text } from "@chakra-ui/react";
 import React from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { QuizRegister } from "../components/QuizRegister";
 import quiz from "../types/quiz";
 import { Layout } from "../components/Layout";
