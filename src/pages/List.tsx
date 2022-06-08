@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout } from "../components/Layout";
+import { Layout } from "../components/common/Layout";
 import { VStack, Text } from "@chakra-ui/react";
 import { collection, onSnapshot,query, where } from "firebase/firestore";
 import db from "../firebase";

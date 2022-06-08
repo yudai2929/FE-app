@@ -1,6 +1,6 @@
 import React, { useContext,useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Layout } from "../components/Layout";
+import { Layout } from "../components/common/Layout";
 import {
   Text,
   Box,

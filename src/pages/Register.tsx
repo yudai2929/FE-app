@@ -3,7 +3,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { QuizRegister } from "../components/QuizRegister";
 import quiz from "../types/quiz";
-import { Layout } from "../components/Layout";
+import { Layout } from "../components/common/Layout";
 const APP_KEY: string = "quizTmp";
 
 export const Register = (): JSX.Element => {

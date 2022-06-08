@@ -1,7 +1,7 @@
 import React, {  } from "react";
 import { Text } from "@chakra-ui/react";
 
-import { Layout } from "../components/Layout";
+import { Layout } from "../components/common/Layout";
 import { QuizForm } from "../components/QuizForm";
 interface Props{
   setNumOfQuests: (value: number) => void
