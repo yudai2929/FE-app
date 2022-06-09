@@ -1,7 +1,23 @@
+## Name
+FE-app
+
+基本情報処理試験の資格勉強ができるアプリ
+
+## Feature 
+
+資格勉強をする際、自分でアプリを作って勉強しようと思い作成。<br /> 
+スクレイピングをして問題を収集しました。問題を解いた後復習ができるようになってます。
+
+## Requirement
+
+* React.js
+* Typescript
+* Chakra UI
+* Firebase
+
+## Usage
 This project was bootstrapped with
 [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
 
 In the project directory, you can run:
 
