@@ -35,7 +35,7 @@ export const QuizCard = ({
   };
 
   return (
-    <Box bgColor="#fff" p="5" w="100%" rounded="2xl" boxShadow="sm">
+    <Box bgColor="#fff" p="5" w="100%" rounded="2xl" boxShadow="sm" mb='5'>
       <Box rounded="xl" mb="3" boxShadow="md">
         <HStack>
         <Text p="3" d="inline-block">

@@ -1,6 +1,6 @@
 import React, { useContext,useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Layout } from "../components/Layout";
+import { Layout } from "../components/common/Layout";
 import {
   Text,
   Box,
@@ -71,7 +71,6 @@ export const Login = (props: any) => {
 
   const loginWithGoogle = async ()=>{
     await signInWithRedirect(auth, provider);
-    quizsTmp && navigate("/register");
   }
 
   const handlemodeChange = () => {
@@ -82,7 +81,7 @@ export const Login = (props: any) => {
   return (
     <Layout>
       {isLogined? (
-        <Navigate to={`/`} />
+        <Navigate to={`/register`} />
       ) : (
         <VStack
           bgColor="white"

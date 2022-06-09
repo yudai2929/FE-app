@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ChakraProvider, theme } from "@chakra-ui/react";
-import { Header } from "./components/Header";
+import { Header } from "./components/common/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Quiz } from "./pages/Quiz";
@@ -10,7 +10,7 @@ import { Log } from "./pages/Log";
 import { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Register } from "./pages/Register";
-import { Footer } from "./components/Footer";
+import { Footer } from "./components/common/Footer";
 
 
 export const loginContext = React.createContext(
@@ -58,8 +58,9 @@ export const App = () => {
             <Route path="log" element={<Log />} />
             <Route path="register" element={<Register />} />
           </Routes>
-          <Footer/>
+          
         </loginContext.Provider>
+        <Footer/>
       </BrowserRouter>
     </ChakraProvider>
   );

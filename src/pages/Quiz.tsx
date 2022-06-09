@@ -1,6 +1,6 @@
 import { Box,  Text, VStack } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
-import { Layout } from "../components/Layout";
+import { Layout } from "../components/common/Layout";
 import { QuizCard } from "../components/QuizCard";
 import { readQuiz } from "../logic/readQuiz";
 import { randomQuiz } from "../logic/randomQuiz";
