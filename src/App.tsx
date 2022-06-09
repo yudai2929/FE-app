@@ -58,8 +58,9 @@ export const App = () => {
             <Route path="log" element={<Log />} />
             <Route path="register" element={<Register />} />
           </Routes>
-          <Footer/>
+          
         </loginContext.Provider>
+        <Footer/>
       </BrowserRouter>
     </ChakraProvider>
   );

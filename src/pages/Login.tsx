@@ -71,7 +71,6 @@ export const Login = (props: any) => {
 
   const loginWithGoogle = async ()=>{
     await signInWithRedirect(auth, provider);
-    quizsTmp && navigate("/register");
   }
 
   const handlemodeChange = () => {
@@ -82,7 +81,7 @@ export const Login = (props: any) => {
   return (
     <Layout>
       {isLogined? (
-        <Navigate to={`/`} />
+        <Navigate to={`/register`} />
       ) : (
         <VStack
           bgColor="white"

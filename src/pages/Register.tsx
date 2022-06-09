@@ -13,13 +13,19 @@ export const Register = (): JSX.Element => {
   return (
     <Layout>
       <VStack w={{ base: "100%", md: "80%" }}>
-      <Text fontSize='3xl' align='center' colorScheme="blue" variant="outline" m='3' >
-            正解率：{5 - worngQuizs.length} / {5}
-          </Text>
         {!worngQuizs ? (
           <Navigate to={`/`} />
         ) : (
           <>
+            <Text
+              fontSize="3xl"
+              align="center"
+              colorScheme="blue"
+              variant="outline"
+              m="3"
+            >
+              正解率：{5 - worngQuizs.length} / {5}
+            </Text>
             {worngQuizs.length === 0 && <Text>間違えた問題はありません</Text>}
             {worngQuizs.map((worngQuiz, index) => {
               return <QuizRegister key={index} quiz={worngQuiz} />;
