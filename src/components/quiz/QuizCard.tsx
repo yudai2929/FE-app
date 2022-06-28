@@ -1,7 +1,7 @@
 import { Box, Text, HStack, Button, Divider, Spacer } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
-import quiz from "../types/quiz";
+import quiz from "../../types/quiz";
 
 interface Props {
   quiz: quiz;

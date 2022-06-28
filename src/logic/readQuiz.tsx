@@ -1,6 +1,7 @@
 import quiz from "../types/quiz";
+import QuizMode from "../types/quiz";
 
-export const readQuiz = (year: string): quiz[] => {
-  const jsonData = require(`../../public/quizfile/${year}.json`);
+export const readQuiz = (year: string,mode: QuizMode): quiz[] => {
+  const jsonData = require(`../../public/quizfile/${mode}/${year}.json`);
   return jsonData
 };

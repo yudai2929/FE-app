@@ -5,7 +5,7 @@ import { readQuiz } from "../logic/readQuiz";
 import { randomQuiz } from "../logic/randomQuiz";
 
 export const Log = () => {
-  const quizDatas = readQuiz('01_aki');
+  const quizDatas = readQuiz('01_aki','FE');
   const quizs = randomQuiz(quizDatas,5)
   console.log(quizs);
   return (
