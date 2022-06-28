@@ -1,7 +1,7 @@
 ## Name
 FE-app
 
-基本情報処理試験の資格勉強ができるアプリ
+情報系の資格勉強ができるアプリ
 
 ## Feature 
 
@@ -10,10 +10,10 @@ FE-app
 
 ## Requirement
 
-* React.js
-* Typescript
-* Chakra UI
-* Firebase
+* React.js (17.0.2)
+* Typescript (4.6.4)
+* Chakra UI (1.8.8)
+* Firebase (9.8.1)
 
 ## Usage
 This project was bootstrapped with
