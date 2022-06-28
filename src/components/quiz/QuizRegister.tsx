@@ -1,8 +1,8 @@
 import { Box, Button, HStack, Spacer, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
-import quiz from "../types/quiz";
+import quiz from "../../types/quiz";
 import { collection, doc, setDoc } from "firebase/firestore";
-import db from "../firebase";
+import db from "../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Layout } from "../components/common/Layout";
 import { VStack, Text } from "@chakra-ui/react";
 import { collection, onSnapshot,query, where } from "firebase/firestore";
 import db from "../firebase";
 import quiz from "../types/quiz";
-import { QuizDetailCard} from "../components/QuizDetailCard"
+import { QuizDetailCard} from "../components/quiz/QuizDetailCard"
 import { getAuth } from "firebase/auth";
 
 export const List = (): JSX.Element => {

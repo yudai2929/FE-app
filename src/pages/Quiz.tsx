@@ -1,17 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box,  Text, VStack } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { Layout } from "../components/common/Layout";
-import { QuizCard } from "../components/QuizCard";
+import { QuizCard } from "../components/quiz/QuizCard";
 import { readQuiz } from "../logic/readQuiz";
 import { randomQuiz } from "../logic/randomQuiz";
 import quiz from "../types/quiz";
-import { QuizRegister } from "../components/QuizRegister";
-import { Link } from "react-router-dom";
+import { QuizRegister } from "../components/quiz/QuizRegister";
 import { getAuth } from "firebase/auth";
+import QuizMode from "../types/quizMode.d";
 
 interface Props {
   numOfQuests: number;
   quizPath: string;
+  quizMode: QuizMode;
 }
 const initializeQuiz: quiz = {
   title: "",
@@ -24,7 +26,7 @@ const initializeQuiz: quiz = {
 
 const APP_KEY:string = 'quizTmp'
 
-export const Quiz = ({ numOfQuests, quizPath }: Props): JSX.Element => {
+export const Quiz = ({ numOfQuests, quizPath, quizMode }: Props): JSX.Element => {
   const [currentQuiz, setCurrentQuiz] = useState<quiz>(initializeQuiz);
   const [quizs, setQuizs] = useState<quiz[]>([]);
   const [worngQuizs, setWorngQuizs] = useState<quiz[]>([]);
@@ -38,7 +40,7 @@ export const Quiz = ({ numOfQuests, quizPath }: Props): JSX.Element => {
 
   useEffect(() => {
     const getQuiz = async () => {
-      const quizsDatas: quiz[] = await readQuiz(quizPath);
+      const quizsDatas: quiz[] = await readQuiz(quizPath,quizMode);
       const quizs: quiz[] = randomQuiz(quizsDatas, numOfQuests);
       setCurrentQuiz(quizs[0]);
       setQuizs(quizs);

@@ -43,7 +43,7 @@ export const Header = ({isLogined,setIsLogined}: Props) => {
         zIndex="100"
       >
         <HStack w="100%">
-          <Heading fontSize="2xl"><Link to='/'>FE過去問アプリ</Link></Heading>
+          <Heading fontSize="2xl"><Link to='/'>情報試験過去問</Link></Heading>
           <Spacer />
           <HStack as="nav" display={{ base: "none", md: "flex" }}>
             <Link to="/">
@@ -54,6 +54,10 @@ export const Header = ({isLogined,setIsLogined}: Props) => {
             <Spacer />
             <Link to="list">
               <Box fontWeight="bold">復習リスト</Box>
+            </Link>
+            <Spacer />
+            <Link to="register">
+              <Box fontWeight="bold">間違えた問題</Box>
             </Link>
             <Spacer />
             {!isLogined ? (
@@ -90,9 +94,14 @@ export const Header = ({isLogined,setIsLogined}: Props) => {
             </Box>
             <Spacer />
             <Box fontWeight="bold" w="100%">
+              <Link to="/register">間違えた問題</Link>
+            </Box>
+            <Spacer />
+            <Box fontWeight="bold" w="100%">
               <Link to="/list">復習リスト</Link>
             </Box>
             <Spacer />
+            
             <Box color="white" w="100%">
               {isLogined ? (
                 <Button bg="blue.500" onClick={logout}>ログアウト</Button>
