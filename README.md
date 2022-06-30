@@ -10,10 +10,10 @@ FE-app
 
 ## Requirement
 
-* React.js (17.0.2)
-* Typescript (4.6.4)
-* Chakra UI (1.8.8)
-* Firebase (9.8.1)
+* React.js 17.0.2
+* Typescript 4.6.4
+* Chakra UI 1.8.8
+* Firebase 9.8.1
 
 ## Usage
 This project was bootstrapped with
